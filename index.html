@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="Images/logo.webp" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <div class="fields">
+                <div class="infoBlock" id="hint1">
+                    Gross annual income is your total salary in a year before any deductions
+                </div>
+                <label for="annualIncome">Enter gross annual income <img class="hint1"  src="Images/question (1).png" alt="questionMark" onmouseover="show(this.className)" onmouseout="hide(this.className)"></label>
+                <br>
+                <div class="inputBox">
+                    <input type="text" id="annualIncome" placeholder="Enter gross annual income (in rs)" data-errorid="error1" oninput="check(this.id , this.dataset.errorid)">
+                    <img  id="error1" src="Images/danger (1).png" alt="errorIcon" height="14px" data-einfoid="eInfoId1" onmouseover="showError(this.dataset.einfoid)" onmouseout="hideError(this.dataset.einfoid)">
+                    <div id="eInfoId1" class="errorInfo infoBlock">
+                        Please enter numbers only
+                    </div>
+                </div>
+                <br>                
+            </div>
+
+            <div class="fields">
+                <div class="infoBlock" id="hint2">
+                    Additional earnings beyond primary income
+                </div>
+                <label for="extraIncome">Enter extra income <img class="hint2"  src="Images/question (1).png" alt="questionMark" onmouseover="show(this.className)" onmouseout="hide(this.className)"></label>
+                <br>
+                <div class="inputBox">
+                    <input type="text" id="extraIncome" placeholder="Enter extra income from other sources" data-errorid="error2" oninput="check(this.id , this.dataset.errorid)">
+                    <img  id="error2" src="Images/danger (1).png" alt="errorIcon" height="14px" data-einfoid="eInfoId2" onmouseover="showError(this.dataset.einfoid)" onmouseout="hideError(this.dataset.einfoid)">
+                    <div id="eInfoId2" class="errorInfo infoBlock">
+                        Please enter numbers only
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div class="fields">
+                <div class="infoBlock" id="hint3">
+                    Select option according to your age
+                </div>
+                <label for="annualIncome">Enter age group <img class="hint3"  src="Images/question (1).png" alt="questionMark" onmouseover="show(this.className)" onmouseout="hide(this.className)"></label>
+                <br>                
+                <div class="inputBox">                    
+                    <select name="age" id="selectAge" onchange="valid()">                        
+                        <option value=""></option>
+                        <option value="less-than-40">&lt; 40 years</option>
+                        <option value="greater-equal-than-40-&-less-than-60">&gt;= 40 years & &lt; 60 years</option>
+                        <option value="greater-equal-than-60">&gt;= 60 years</option>
+                    </select>     
+                    <img id="error3" src="Images/danger (1).png" alt="errorIcon" height="14px" data-einfoid="eInfoId3" onmouseover="showError(this.dataset.einfoid)" onmouseout="hideError(this.dataset.einfoid)">
+                    <div id="eInfoId3" class="errorInfo infoBlock">
+                        Input field is mandatory
+                    </div>
+                </div>
+                <br>               
+            </div>
+
+            <div class="fields">
+                <div class="infoBlock" id="hint4">
+                    Total amount of deductions that can be applied to reduce taxable income
+                </div>
+                <label onmo for="deductions">Enter total applicable deductions <img class="hint4"  src="Images/question (1).png" alt="questionMark" onmouseover="show(this.className)" onmouseout="hide(this.className)"></label>
+                <br>      
+                <div class="inputBox">
+                    <input type="text" id="deductions" placeholder="Add total applicable deductions" data-errorid="error4" oninput="check(this.id , this.dataset.errorid)">
+                    <img  id="error4" src="Images/danger (1).png" alt="errorIcon" height="14px" data-einfoid="eInfoId4" onmouseover="showError(this.dataset.einfoid)" onmouseout="hideError(this.dataset.einfoid)">
+                    <div id="eInfoId4" class="errorInfo infoBlock">
+                        Please enter numbers only
+                    </div>
+                </div>          
+                <br>
+            </div>  
+        </div>
+        <div class="submit">
+            <button onclick="calculateTax()">Submit</button>
+        </div>
+        
+    </div>
+    
+    <div class="result">
+        <p style="font-size: 30px;font-weight: 600;">Your overall income will be<p>
+        <p id="netIncome"></p>
+        <p style="font-weight: 500;">after tax deductions</p>
+        <button id="closeButton" onclick="hideResult()">Close</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
