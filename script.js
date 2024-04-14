@@ -76,7 +76,7 @@ function calculateTax(){    // Function for calculating result
 
     let deductions = document.getElementById("deductions").value;
     if(deductions.length == 0){
-        extraIncome = 0;
+        deductions = 0;
     }
     else{        
         deductions = parseInt(deductions);
