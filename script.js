@@ -143,7 +143,7 @@ function calculateTax(){    // Function for calculating result
     netIncome = "₹" + netIncome;
 
     // If error in any of the field is still there it will not show the result
-    if(document.getElementById("error1").style.display == "block" || document.getElementById("error3").style.display == "block" || document.getElementById("error4").style.display == "block"){           
+    if(document.getElementById("error1").style.display == "block" || document.getElementById("error2").style.display == "block" || document.getElementById("error4").style.display == "block"){           
         return;
     }
     
