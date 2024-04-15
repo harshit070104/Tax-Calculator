@@ -25,7 +25,7 @@ function check(id , errorId){ // Checking the input field so that it shouldnot c
     let income = document.getElementById(id).value;
     let size = income.length;   
     
-    let nums = ["0","1","2","3","4","5","6","7","8","9","."];
+    let nums = ["0","1","2","3","4","5","6","7","8","9"];
     let ele = document.getElementById(id);
     for(let i=size-1 ; i>=0 ; i--)  // Untill the input contains char other than numbers show error
     {
@@ -55,98 +55,51 @@ function valid(){
     }
 }
 
-function calculateTax(){    // Function for calculating result     
-    let annualIncome = document.getElementById("annualIncome").value;    
-    if(annualIncome.length == 0){
-        annualIncome = 0;
-    }
-    else{
-        annualIncome = parseInt(annualIncome);
-    }
-    console.log(annualIncome);        
-
-    let extraIncome = document.getElementById("extraIncome").value;
-    if(extraIncome.length == 0){
-        extraIncome = 0;
-    }
-    else{
-        extraIncome = parseInt(extraIncome);
-    }    
-    console.log(extraIncome);
-    
-    let deductions = document.getElementById("deductions").value;
-    if(deductions.length == 0){
-        deductions = 0;
-    }
-    else{                
-        deductions = parseInt(deductions);
-    }
-    console.log(deductions);
-
+function calculateTax(){
+    // If parsing will give NaN then take value 0 simple
+    let annualIncome = parseInt(document.getElementById("annualIncome").value) || 0;
+    let extraIncome = parseInt(document.getElementById("extraIncome").value) || 0;
+    let deductions = parseInt(document.getElementById("deductions").value) || 0;
     let age = document.getElementById("selectAge").value;
-    if(age == ''){        
-        return valid();        
-    } 
+
+    if(age === ''){
+        valid();
+        return;
+    }
     else{
         document.getElementById("error3").style.display = "none";
-    }   
-    console.log(age);
-    
-    let overallIncome = annualIncome+extraIncome-deductions;    
+    }
+
+    let overallIncome = annualIncome+extraIncome-deductions;
     let taxableIncome = overallIncome-800000;
-    let netIncome;    
+    let tax;
+    let netIncome;
+
     if(taxableIncome>0){
-        if(age == "less-than-40"){
+        if(age === "less-than-40"){
             tax = 0.3;
         }
-        else if(age == "greater-equal-than-40-&-less-than-60"){
+        else if(age === "greater-equal-than-40-&-less-than-60"){
             tax = 0.4;
         }
-        else if(age == "greater-equal-than-60"){
+        else if(age === "greater-equal-than-60"){
             tax = 0.1;
         }
 
         netIncome = (1-tax)*taxableIncome + 800000;
     }
     else{
-        netIncome = overallIncome;
-    } 
-
-    let size = Math.floor(Math.log10(netIncome) + 1); 
-    netIncome = netIncome.toPrecision(size+2);
-
-    let i=size-1;
-    let threeCount = 2;
-    let twoCount = 1;
-    let onlyOnce = 1;
-    while(i>0){        
-        if(onlyOnce == 1){
-            while(i>0 && threeCount--){
-                i--;
-            }
-            if(i>0){
-                netIncome = netIncome.slice(0, i) + "," + netIncome.slice(i);
-            }
-            onlyOnce = 0;
-            i--;    // As we dont wanna consider comma so thats why
-        }
-
-        while(i>0 && twoCount--){
-            i--;
-        }
-        if(i>0){            
-            netIncome = netIncome.slice(0, i) + "," + netIncome.slice(i);
-        }
-        i--;
-        twoCount = 1;
+        netIncome = overallIncome;  // No tax reduction
     }
-    netIncome = "₹" + netIncome;
+
+    // Format netIncome with commas according to Indian currency system 
+    netIncome = "₹" + netIncome.toLocaleString('en-IN');
 
     // If error in any of the field is still there it will not show the result
-    if(document.getElementById("error1").style.display == "block" || document.getElementById("error2").style.display == "block" || document.getElementById("error4").style.display == "block"){           
+    if (document.getElementById("error1").style.display === "block" || document.getElementById("error2").style.display === "block" || document.getElementById("error4").style.display === "block"){
         return;
     }
-    
+
     document.getElementById("netIncome").innerHTML = netIncome;
     showResult();
 }
